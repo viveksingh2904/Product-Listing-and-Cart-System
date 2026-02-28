@@ -1,0 +1,536 @@
+/* ================= GLOBAL RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+/* ================= NAVBAR ================= */
+.navbar.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.navbar {
+  background: linear-gradient(135deg, #111, #1e1e1e);
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(45deg, orange, #ff4d4d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.theme-btn {
+  background: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-btn:hover {
+  background: #444;
+  transform: translateY(-2px);
+}
+
+.cart-btn {
+  background: linear-gradient(45deg, orange, #ff6600);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.4);
+}
+
+.cart-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.6);
+}
+
+.cart-count {
+  background: white;
+  color: #ff6600;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 50%;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  padding: 40px 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ================= SEARCH ================= */
+.search {
+  padding: 14px 18px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 35px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search:focus {
+  border-color: orange;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
+/* ================= PRODUCT GRID ================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 30px;
+}
+
+/* ================= PREMIUM PRODUCT CARD ================= */
+.card {
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(45deg, transparent, rgba(255,165,0,0.08), transparent);
+  top: -100%;
+  left: -100%;
+  transition: 0.6s;
+}
+
+.card:hover::before {
+  top: 100%;
+  left: 100%;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: 0.4s;
+}
+
+.card:hover img {
+  transform: scale(1.06);
+}
+
+.card h3 {
+  margin: 18px 0 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(45deg, orange, #ff4d4d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stock {
+  color: green;
+  font-size: 14px;
+}
+
+.out {
+  color: red;
+  font-size: 14px;
+}
+
+/* ================= PREMIUM ADD TO CART BUTTON ================= */
+.add-btn {
+  margin-top: 18px;
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(45deg, orange, #ff6600);
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.4);
+}
+
+.add-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.6);
+}
+
+.add-btn:active {
+  transform: scale(0.95);
+}
+
+.add-btn:disabled {
+  background: #ccc;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ================= PREMIUM CART DRAWER ================= */
+
+.cart-overlay {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  z-index: 900;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cart-panel {
+  width: 400px;
+  height: 100%;
+  background: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 25px;
+  overflow-y: auto;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.qty-controls button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(45deg, orange, #ff6600);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.qty-controls button:hover {
+  transform: scale(1.1);
+}
+
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: crimson;
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+/* ================= DARK MODE ================= */
+body.dark {
+  background: #121212;
+  color: #f1f1f1;
+}
+
+body.dark .card {
+  background: linear-gradient(145deg, #1e1e1e, #222);
+  color: white;
+}
+
+body.dark .cart-panel {
+  background: #1e1e1e;
+  color: white;
+}
+
+body.dark .search {
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+}
+
+body.dark .price {
+  -webkit-text-fill-color: orange;
+}
+
+/* ================= PREMIUM CLOSE BUTTON ================= */
+
+.close-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 15px 0;
+  border: none;
+  border-radius: 40px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #ff3c3c, #b30000);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.45);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effect */
+.close-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(255, 0, 0, 0.65);
+}
+
+/* Click Effect */
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Shine Animation */
+.close-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.close-btn:hover::before {
+  left: 100%;
+}
+
+/* Dark Mode Support */
+body.dark .close-btn {
+  background: linear-gradient(135deg, #ff4444, #800000);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+}
+
+/* ================= PAGINATION STYLE ================= */
+
+/* ================= PAGINATION STYLE ================= */
+
+.pagination {
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Circle Button */
+.pagination button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s ease;
+}
+
+/* Hide original text */
+.pagination button:first-child {
+  font-size: 0;
+}
+.pagination button:last-child {
+  font-size: 0;
+}
+
+/* Add Arrows */
+.pagination button:first-child::after {
+  content: "←";
+  font-size: 30px;
+}
+
+.pagination button:last-child::after {
+  content: "→";
+  font-size: 30px;
+}
+
+/* Hover Effect */
+.pagination button:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Click Effect */
+.pagination button:active {
+  transform: scale(0.9);
+}
+
+/* Disabled */
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ================= FOOTER STYLE ================= */
+
+.footer {
+  margin-top: 80px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: white;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.social-icons a {
+  font-size: 30px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-6px) scale(1.2);
+  color: #00f2fe;
+}
+
+.footer-copy {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+/* Dark Mode Support */
+body.dark .footer {
+  background: linear-gradient(135deg, #000000, #1f1f1f);
+}
+
+/* ================= CHECKOUT BUTTON ================= */
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 0;
+  border: none;
+  border-radius: 40px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #00c853, #009624);
+  box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4);
+  transition: all 0.35s ease;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 200, 83, 0.6);
+}
+
+.checkout-btn:active {
+  transform: scale(0.95);
+}
